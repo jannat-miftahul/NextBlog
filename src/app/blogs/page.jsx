@@ -47,7 +47,79 @@ function PostSkeleton() {
     );
 }
 
+// Blog post card component
+function PostCard({ post, index }) {
+    const category = getCategoryByIndex(post.id);
+    const readTime = getReadTimeByIndex(post.id);
 
+    const gradients = [
+        "from-blue-500/10 to-sky-500/10",
+        "from-emerald-500/10 to-teal-500/10",
+        "from-amber-500/10 to-orange-500/10",
+        "from-rose-500/10 to-pink-500/10",
+        "from-indigo-500/10 to-violet-500/10",
+        "from-cyan-500/10 to-blue-500/10",
+    ];
+
+    return (
+        <Card className="group overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-1">
+            {/* Card header gradient */}
+            <div
+                className={`h-32 bg-gradient-to-br ${gradients[index % gradients.length]} relative overflow-hidden`}
+            >
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM5QzkyQUMiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIxIiBjeT0iMSIgcj0iMSIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
+                <div className="absolute bottom-3 left-3">
+                    <Badge
+                        variant="secondary"
+                        className="bg-background/80 backdrop-blur-sm text-xs"
+                    >
+                        {category}
+                    </Badge>
+                </div>
+                {index < 3 && (
+                    <div className="absolute top-3 right-3">
+                        <Badge className="bg-gradient-to-r from-blue-700 to-sky-500 text-white border-0 text-xs">
+                            <TrendingUp className="w-3 h-3 mr-1" />
+                            Trending
+                        </Badge>
+                    </div>
+                )}
+            </div>
+
+            <CardHeader className="space-y-2 pb-2">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Clock className="w-3 h-3" />
+                    <span>{readTime} min read</span>
+                </div>
+                <CardTitle className="text-lg line-clamp-2 group-hover:text-blue-600 transition-colors capitalize">
+                    {post.title}
+                </CardTitle>
+            </CardHeader>
+
+            <CardContent className="pt-0">
+                <CardDescription className="line-clamp-2 text-sm text-muted-foreground/80">
+                    {post.body}
+                </CardDescription>
+            </CardContent>
+
+            <Separator className="mx-4" />
+
+            <CardFooter className="pt-3 pb-4">
+                <Button
+                    asChild
+                    variant="ghost"
+                    size="sm"
+                    className="group/btn w-full justify-between hover:bg-blue-50 dark:hover:bg-blue-950/20"
+                >
+                    <Link href={`/posts/${post.id}`}>
+                        <span>Read Article</span>
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                    </Link>
+                </Button>
+            </CardFooter>
+        </Card>
+    );
+}
 
 export default function Blogs() {
     const [posts, setPosts] = useState([]);
