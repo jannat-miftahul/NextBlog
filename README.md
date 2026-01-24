@@ -1,59 +1,108 @@
 # NextBlog
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+A modern, premium blogging platform built with Next.js 15 and Tailwind CSS. Features a stunning dark-themed hero section, responsive design, and seamless authentication.
 
-## Getting Started
+🔗 **Live Demo:** [the-nextblog.vercel.app](https://the-nextblog.vercel.app)
 
-First, run the development server:
+---
+
+## ✨ Features
+
+| Feature            | Description                                                        |
+| ------------------ | ------------------------------------------------------------------ |
+| **Modern UI**      | Premium design with glassmorphism, gradients, and micro-animations |
+| **Authentication** | Secure login/signup with Kinde Auth                                |
+| **Responsive**     | Optimized for mobile, tablet, and desktop                          |
+| **Performance**    | Built with Next.js 15 Turbopack for fast loading                   |
+| **Components**     | Reusable shadcn/ui components                                      |
+
+---
+
+## 📄 Pages
+
+- **Home** — Hero section with floating cards, stats, and featured articles
+- **Blogs** — Article listing with search, filters, and category navigation
+- **Profile** — User dashboard with stats, activity, and settings
+- **Post** — Individual article view with comments, likes, and sharing
+
+---
+
+## 🛠 Tech Stack
+
+| Technology                               | Purpose                         |
+| ---------------------------------------- | ------------------------------- |
+| [Next.js 15](https://nextjs.org/)        | React framework with App Router |
+| [Tailwind CSS](https://tailwindcss.com/) | Utility-first styling           |
+| [shadcn/ui](https://ui.shadcn.com/)      | UI component library            |
+| [Kinde Auth](https://kinde.com/)         | Authentication provider         |
+| [Lucide React](https://lucide.dev/)      | Icon library                    |
+
+---
+
+## 🚀 Quick Start
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/NextBlog.git
+
+# Navigate to project
+cd NextBlog
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚙️ Environment Variables
 
-## Project Structure
+Create a `.env.local` file in the root directory:
 
--   components/: Contains reusable UI components.
--   pages/: Contains the application's pages.
--   lib/: Contains utility functions and libraries.
--   public: Contains static assets like images and fonts.
--   styles/: Contains global styles and CSS modules.
+```env
+KINDE_CLIENT_ID=your_client_id
+KINDE_CLIENT_SECRET=your_client_secret
+KINDE_ISSUER_URL=https://your-domain.kinde.com
+KINDE_SITE_URL=http://localhost:3000
+KINDE_POST_LOGOUT_REDIRECT_URL=http://localhost:3000
+KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000
+```
 
-## API Routes
+> Get your credentials from the [Kinde Dashboard](https://app.kinde.com/)
 
-This project includes the following API routes:
+---
 
--   /api/auth/setup: Handles authentication setup.
+## 📁 Project Structure
 
-## Features
+```
+src/
+├── app/
+│   ├── page.js          # Home page
+│   ├── blogs/           # Blog listing
+│   ├── profile/         # User profile
+│   ├── posts/[id]/      # Individual post
+│   └── api/auth/        # Kinde auth routes
+├── components/
+│   ├── Navbar.jsx       # Navigation bar
+│   ├── Footer.jsx       # Footer component
+│   └── ui/              # shadcn/ui components
+└── lib/
+    └── utils.js         # Utility functions
+```
 
--   Server-side rendering (SSR) and static site generation (SSG) with Next.js.
--   Client-side data fetching with React hooks.
--   Loading spinner component for indicating loading states.
--   Responsive design with Tailwind CSS.
+---
 
-## Learn More
+## 📝 Scripts
 
-To learn more about Next.js, take a look at the following resources:
+| Command         | Description              |
+| --------------- | ------------------------ |
+| `npm run dev`   | Start development server |
+| `npm run build` | Build for production     |
+| `npm run start` | Start production server  |
+| `npm run lint`  | Run ESLint               |
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
