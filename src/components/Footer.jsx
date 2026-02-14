@@ -60,7 +60,7 @@ const Footer = () => {
 
     const footerLinks = {
         explore: [
-            { label: "All Articles", href: "/blogs", icon: BookOpen },
+            { label: "All Articles", href: "/articles", icon: BookOpen },
             { label: "Trending", href: "#", icon: TrendingUp },
             { label: "Categories", href: "#", icon: PenTool },
             { label: "Authors", href: "#", icon: Users },

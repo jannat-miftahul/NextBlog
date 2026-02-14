@@ -8,8 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import {
-    User, Mail, Calendar, Settings, Bell, BookOpen, Heart, MessageSquare,
-    TrendingUp, Edit3, LogOut, Shield, Camera
+    User, Mail, Calendar, Settings, Bell, BookOpen, Heart,
+    MessageSquare, TrendingUp, Edit3, LogOut, Shield, Camera
 } from "lucide-react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 

@@ -155,10 +155,6 @@ export default function Blogs() {
 
                 <div className="relative max-w-screen-xl mx-auto px-4 lg:px-8 py-16 lg:py-20">
                     <div className="text-center space-y-6">
-                        <Badge variant="outline" className="px-4 py-1.5">
-                            <BookOpen className="w-4 h-4 mr-2" />
-                            Blog
-                        </Badge>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
                             <span className="bg-gradient-to-r from-blue-800 via-blue-500 to-sky-400 bg-clip-text text-transparent">
                                 All Articles

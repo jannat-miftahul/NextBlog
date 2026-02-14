@@ -131,14 +131,14 @@ function HeroSection() {
 
                     {/* CTA buttons */}
                     <div className="flex flex-wrap justify-center gap-4 pt-4">
-                        <Button size="lg" className="group bg-white text-slate-900 hover:bg-blue-50 shadow-lg shadow-white/10 text-base px-8" asChild>
-                            <Link href="/blogs">
+                        <Button size="lg" className="group bg-white text-slate-900 hover:bg-blue-100 shadow-lg shadow-white/10 text-base px-8" asChild>
+                            <Link href="/articles">
                                 <BookOpen className="w-5 h-5 mr-2" />
                                 Explore Articles
                                 <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                             </Link>
                         </Button>
-                        <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm text-base px-8">
+                        <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/10 backdrop-blur-sm text-base px-8">
                             <Users className="w-5 h-5 mr-2" />
                             Start Writing
                         </Button>
@@ -319,7 +319,7 @@ export default function Home() {
                         className="group border-primary/20 hover:bg-primary/5"
                         asChild
                     >
-                        <Link href="/blogs">
+                        <Link href="/articles">
                             View All Articles
                             <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                         </Link>

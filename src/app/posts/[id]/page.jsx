@@ -215,7 +215,7 @@ export default function Post() {
                         size="sm"
                         className="mb-6 hover:bg-blue-50 dark:hover:bg-blue-950/20"
                     >
-                        <Link href="/blogs">
+                        <Link href="/articles">
                             <ArrowLeft className="w-4 h-4 mr-2" />
                             Back to Articles
                         </Link>
