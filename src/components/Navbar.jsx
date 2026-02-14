@@ -4,9 +4,10 @@ import React, { useState, useEffect } from "react";
 import { RegisterLink, LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-nextjs";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { Menu, X, Home, BookOpen, User, LogIn, LogOut, UserPlus, ChevronDown, PenTool } from "lucide-react";
+import { Menu, X, Home, BookOpen, User, LogIn, LogOut, ChevronDown, PenTool } from "lucide-react";
 
 // Custom Blog Logo Component
 const BlogLogo = () => (
@@ -52,9 +53,10 @@ const BlogLogo = () => (
 );
 
 const Navbar = () => {
-    const { isAuthenticated } = useKindeAuth();
+    const { isAuthenticated, user } = useKindeAuth();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const pathname = usePathname();
 
     // Handle scroll effect
     useEffect(() => {
@@ -67,8 +69,14 @@ const Navbar = () => {
 
     const navLinks = [
         { href: "/", label: "Home", icon: Home },
-        { href: "/blogs", label: "Articles", icon: BookOpen },
+        { href: "/articles", label: "Articles", icon: BookOpen },
     ];
+
+    // Check if link is active
+    const isActive = (href) => {
+        if (href === "/") return pathname === "/";
+        return pathname?.startsWith(href);
+    };
 
     return (
         <header
@@ -81,7 +89,9 @@ const Navbar = () => {
                 <div className="flex justify-between items-center h-16 lg:h-20">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-3 group">
-                        <BlogLogo />
+                        <div className="transition-transform duration-300 group-hover:scale-105">
+                            <BlogLogo />
+                        </div>
                         <div className="flex flex-col">
                             <span className="text-xl font-bold bg-gradient-to-r from-blue-700 via-blue-500 to-sky-400 bg-clip-text text-transparent leading-tight">
                                 NextBlog
@@ -94,24 +104,39 @@ const Navbar = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex md:items-center gap-1">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
-                            >
-                                <link.icon className="w-4 h-4" />
-                                {link.label}
-                            </Link>
-                        ))}
+                        {navLinks.map((link) => {
+                            const active = isActive(link.href);
+                            return (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${active
+                                        ? "text-blue-600 dark:text-blue-400"
+                                        : "text-muted-foreground hover:text-foreground"
+                                        } hover:bg-muted/50`}
+                                >
+                                    <link.icon className="w-4 h-4" />
+                                    {link.label}
+                                    {active && (
+                                        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full" />
+                                    )}
+                                </Link>
+                            );
+                        })}
 
                         {isAuthenticated ? (
                             <Link
                                 href="/profile"
-                                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+                                className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isActive("/profile")
+                                    ? "text-blue-600 dark:text-blue-400"
+                                    : "text-muted-foreground hover:text-foreground"
+                                    } hover:bg-muted/50`}
                             >
                                 <User className="w-4 h-4" />
                                 Profile
+                                {isActive("/profile") && (
+                                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full" />
+                                )}
                             </Link>
                         ) : (
                             <LoginLink
@@ -133,8 +158,16 @@ const Navbar = () => {
                                         variant="outline"
                                         className="gap-2 border-border/50 hover:bg-muted/50"
                                     >
-                                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-700 to-sky-500 flex items-center justify-center shadow-inner">
-                                            <User className="w-4 h-4 text-white" />
+                                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-700 to-sky-500 flex items-center justify-center shadow-inner overflow-hidden">
+                                            {user?.picture ? (
+                                                <img
+                                                    src={user.picture}
+                                                    alt={user.given_name || "User"}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <User className="w-4 h-4 text-white" />
+                                            )}
                                         </div>
                                         My Account
                                         <ChevronDown className="w-4 h-4 text-muted-foreground" />
@@ -172,7 +205,7 @@ const Navbar = () => {
                                     </Button>
                                 </LoginLink>
                                 <RegisterLink postLoginRedirectURL="/">
-                                    <Button className="bg-gradient-to-r from-blue-700 to-sky-500 text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all gap-2">
+                                    <Button className="bg-gradient-to-r from-blue-700 to-sky-500 text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/35 hover:-translate-y-0.5 transition-all duration-200 gap-2">
                                         <PenTool className="w-4 h-4" />
                                         Start Writing
                                     </Button>
@@ -184,42 +217,68 @@ const Navbar = () => {
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="md:hidden p-2 rounded-lg hover:bg-muted/50 transition-colors"
+                        className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-muted/50 transition-colors"
                         aria-label="Toggle menu"
                     >
-                        {isMobileMenuOpen ? (
-                            <X className="w-6 h-6" />
-                        ) : (
-                            <Menu className="w-6 h-6" />
-                        )}
+                        <div className="w-5 h-4 flex flex-col justify-between">
+                            <span
+                                className={`w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-center ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
+                                    }`}
+                            />
+                            <span
+                                className={`w-full h-0.5 bg-current rounded-full transition-all duration-300 ${isMobileMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
+                                    }`}
+                            />
+                            <span
+                                className={`w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-center ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+                                    }`}
+                            />
+                        </div>
                     </button>
                 </div>
 
                 {/* Mobile Menu */}
                 <div
-                    className={`md:hidden overflow-hidden transition-all duration-300 ${isMobileMenuOpen ? "max-h-[500px] pb-6" : "max-h-0"
-                        }`}
+                    className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen
+                        ? "max-h-[500px] opacity-100 translate-y-0"
+                        : "max-h-0 opacity-0 -translate-y-4"
+                        } overflow-hidden`}
                 >
-                    <div className="flex flex-col gap-1 pt-4 border-t border-border/50">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
-                            >
-                                <link.icon className="w-5 h-5" />
-                                {link.label}
-                            </Link>
-                        ))}
+                    <div className="flex flex-col gap-1 pt-4 pb-6 border-t border-border/50">
+                        {navLinks.map((link) => {
+                            const active = isActive(link.href);
+                            return (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className={`relative flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${active
+                                            ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/20"
+                                            : "text-muted-foreground hover:text-foreground"
+                                        } hover:bg-muted/50`}
+                                >
+                                    {active && (
+                                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-600 dark:bg-blue-400 rounded-r-full" />
+                                    )}
+                                    <link.icon className="w-5 h-5" />
+                                    {link.label}
+                                </Link>
+                            );
+                        })}
 
                         {isAuthenticated ? (
                             <>
                                 <Link
                                     href="/profile"
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+                                    className={`relative flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive("/profile")
+                                            ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/20"
+                                            : "text-muted-foreground hover:text-foreground"
+                                        } hover:bg-muted/50`}
                                 >
+                                    {isActive("/profile") && (
+                                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-600 dark:bg-blue-400 rounded-r-full" />
+                                    )}
                                     <User className="w-5 h-5" />
                                     My Profile
                                 </Link>
