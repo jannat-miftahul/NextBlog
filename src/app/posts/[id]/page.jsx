@@ -3,30 +3,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import {
-    ArrowLeft,
-    ArrowRight,
-    Bookmark,
-    Calendar,
-    Clock,
-    Heart,
-    MessageSquare,
-    Share2,
-    User,
-    Eye,
-    ThumbsUp,
-    Send,
+    ArrowLeft, ArrowRight, Bookmark, Calendar, Clock,
+    Heart, MessageSquare, Share2, User, Eye, ThumbsUp, Send,
 } from "lucide-react";
 
 // Category options
