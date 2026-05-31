@@ -6,11 +6,11 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
 [![Kinde Auth](https://img.shields.io/badge/Auth-Kinde-6C47FF?style=flat-square)](https://kinde.com/)
 
-**🔗 Live Demo:** [the-nextblog.vercel.app](https://the-nextblog.vercel.app)
+**Live Demo:** [the-nextblog.vercel.app](https://the-nextblog.vercel.app)
 
 ---
 
-## ✨ Features
+## Features
 
 - **Premium UI** — Glassmorphism effects, gradient backgrounds, and smooth micro-animations
 - **Secure Auth** — Easy authentication with Kinde (login, signup, logout)
@@ -18,11 +18,11 @@
 - **Fast Performance** — Built with Next.js 15 and optimized for speed
 - **Component Library** — Reusable shadcn/ui components
 - **Dark Theme** — Beautiful dark mode with blue gradient accents
-- 🎯 **Active Route Indicators** — Visual feedback for current page navigation
+- **Active Route Indicators** — Visual feedback for current page navigation
 
 ---
 
-## 📄 Pages
+## Pages
 
 | Page             | Description                                                    |
 | ---------------- | -------------------------------------------------------------- |
@@ -33,7 +33,7 @@
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Technology                               | Purpose                          |
 | ---------------------------------------- | -------------------------------- |
@@ -45,7 +45,7 @@
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Clone the repository
@@ -68,7 +68,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Create a `.env.local` file in the root directory and add your Kinde Auth credentials:
 
@@ -85,7 +85,7 @@ KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 NextBlog/
@@ -99,7 +99,7 @@ NextBlog/
 
 ---
 
-## 📝 Available Scripts
+## Available Scripts
 
 | Command         | Description                          |
 | --------------- | ------------------------------------ |
